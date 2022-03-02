@@ -18,3 +18,13 @@ Benchmarks on my Intel Core i7-8650U CPU @ 1.90GHz:
 | RC4+   | 430.68 |
 | VMPC   | 327.31 |
 | Spritz |  79.79 |
+
+Benchmarks on @glyn's Intel Xeon CPU X5570 @ 2.93GHz:
+
+| PRNG   | MBps   |
+|--------|:------:|
+| RC4    | 429.89 |
+| RC4A   | 430.14 |
+| RC4+   | 418.74 |
+| VMPC   | 281.17 |
+| Spritz | 137.20 |
