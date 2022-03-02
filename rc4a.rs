@@ -34,11 +34,11 @@ impl RC4A {
 
         self.j1 = self.j1.wrapping_add(self.state1[self.i as usize]);
         self.state1.swap(self.i as usize, self.j1 as usize);
-        let res1 = self.state1[(self.state1[self.i as usize].wrapping_add(self.state1[self.j1 as usize])) as usize] as u16;
+        let res1 = self.state2[(self.state1[self.i as usize].wrapping_add(self.state1[self.j1 as usize])) as usize] as u16;
 
         self.j2 = self.j2.wrapping_add(self.state2[self.i as usize]);
         self.state2.swap(self.i as usize, self.j2 as usize);
-        let res2 = self.state2[(self.state2[self.i as usize].wrapping_add(self.state2[self.j2 as usize])) as usize] as u16;
+        let res2 = self.state1[(self.state2[self.i as usize].wrapping_add(self.state2[self.j2 as usize])) as usize] as u16;
 
         return res1 << 8 | res2;
     }
@@ -57,6 +57,6 @@ fn main() {
         }
     }
     let elapsed = now.elapsed();
-    let rate = 1_000_000_000 as f64 / (1048576 as f64 * elapsed.as_secs_f64());
+    let rate = 2_000_000_000 as f64 / (1048576 as f64 * elapsed.as_secs_f64());
     println!("RC4A (MBps): {:.2?}", rate);
 }
