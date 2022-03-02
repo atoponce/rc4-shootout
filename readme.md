@@ -3,11 +3,11 @@ Benchmark performance of RC4 and its variants.
 
 To build, execute:
 
-  $ cargo build --release
+    $ cargo build --release
 
 Then run one of the binaries:
 
-  $ ./target/release/rc4
+    $ ./target/release/rc4
 
 Benchmarks on my Intel Core i7-8650U CPU @ 1.90GHz:
 
