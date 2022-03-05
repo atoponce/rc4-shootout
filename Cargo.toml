@@ -2,18 +2,3 @@
 name = "rc4_shootout"
 version = "0.1.0"
 authors = ["Aaron Toponce <aaron.toponce@gmail.com>"]
-[[bin]]
-name = "rc4"
-path = "rc4.rs"
-[[bin]]
-name = "spritz"
-path = "spritz.rs"
-[[bin]]
-name = "rc4a"
-path = "rc4a.rs"
-[[bin]]
-name = "vmpc"
-path = "vmpc.rs"
-[[bin]]
-name = "rc4_plus"
-path = "rc4_plus.rs"
