@@ -88,7 +88,7 @@ impl Spritz {
         let mut p = Vec::with_capacity(r as usize);
 
         for _i in 0..r {
-            p.push(self.drip())
+            p.push(self.drip());
         }
 
         p
