@@ -6,7 +6,7 @@ struct RC4 {
 
 impl RC4 {
     fn new(key: &[u8]) -> RC4 {
-        assert!(1 <= key.len() && key.len() <= 256);
+        assert!(!key.is_empty() && key.len() <= 256);
 
         let mut rc4 = RC4 {
             i: 0,
@@ -23,13 +23,13 @@ impl RC4 {
             rc4.state.swap(i, rc4.j as usize);
         }
 
-        RC4 {
+        rc4 = RC4 {
             i: 0,
             j: 0,
             state: rc4.state
         };
 
-        return rc4;
+        rc4
     }
 
     fn update(&mut self) -> u8 {
@@ -37,11 +37,11 @@ impl RC4 {
         self.j = self.j.wrapping_add(self.state[self.i as usize]);
         self.state.swap(self.i as usize, self.j as usize);
 
-        return self.state[
+        self.state[
             self.state[self.i as usize].wrapping_add(
                 self.state[self.j as usize]
             )
-         as usize];
+         as usize]
     }
 }
 
@@ -58,6 +58,6 @@ fn main() {
         }
     }
     let elapsed = now.elapsed();
-    let rate = 1_000_000_000 as f64 / (1048576 as f64 * elapsed.as_secs_f64());
+    let rate = 1_000_000_000_f64 / (1_048_576_f64 * elapsed.as_secs_f64());
     println!("RC4 (MBps): {:.2?}", rate);
 }

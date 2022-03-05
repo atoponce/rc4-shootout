@@ -24,12 +24,12 @@ impl Spritz {
             spritz.state[i] = i as u8;
         }
         
-        return spritz;
+        spritz
     }
     
     fn absorb(&mut self, data: &[u8]) {
         for byte in data {
-            self.absorb_byte(&byte);
+            self.absorb_byte(byte);
         }
     }
 
@@ -91,7 +91,7 @@ impl Spritz {
             p.push(self.drip())
         }
 
-        return p;
+        p
     }
 
     fn drip(&mut self) -> u8 {
@@ -101,7 +101,7 @@ impl Spritz {
 
         self.update();
         
-        return self.output();
+        self.output()
     }
 
     fn update(&mut self) {
@@ -118,7 +118,7 @@ impl Spritz {
             ) as usize],
         ) as usize];
 
-        return self.z
+        self.z
     }
 }
 
@@ -138,6 +138,6 @@ fn main() {
         }
     }
     let elapsed = now.elapsed();
-    let rate = 1_000_000_000 as f64 / (1048576 as f64 * elapsed.as_secs_f64());
+    let rate = 1_000_000_000_f64 / (1_048_576_f64 * elapsed.as_secs_f64());
     println!("Spritz (MBps): {:.2}", rate);
 }

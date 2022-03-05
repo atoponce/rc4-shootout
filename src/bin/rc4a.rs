@@ -8,7 +8,7 @@ struct RC4A {
 
 impl RC4A {
     fn new(key1: &[u8]) -> RC4A {
-        assert!(1 <= key1.len() && key1.len() <= 256);
+        assert!(!key1.is_empty() && key1.len() <= 256);
 
         let mut rc4a = RC4A { i: 0, j1: 0, j2: 0, state1: [0; 256], state2: [0; 256] };
 
@@ -24,9 +24,15 @@ impl RC4A {
         rc4a.state2 = rc4a.state1;
         rc4a.state2.reverse(); // Cheating maybe, but it's a benchmark.
 
-        RC4A { i: 0, j1: 0, j2: 0, state1: rc4a.state1, state2: rc4a.state2 };
+        rc4a = RC4A {
+            i: 0,
+            j1: 0,
+            j2: 0,
+            state1: rc4a.state1,
+            state2: rc4a.state2
+        };
 
-        return rc4a;
+        rc4a
     }
 
     fn update(&mut self) -> u16 {
@@ -40,7 +46,7 @@ impl RC4A {
         self.state2.swap(self.i as usize, self.j2 as usize);
         let res2 = self.state1[(self.state2[self.i as usize].wrapping_add(self.state2[self.j2 as usize])) as usize] as u16;
 
-        return res1 << 8 | res2;
+        res1 << 8 | res2
     }
 }
 
@@ -57,6 +63,6 @@ fn main() {
         }
     }
     let elapsed = now.elapsed();
-    let rate = 2_000_000_000 as f64 / (1048576 as f64 * elapsed.as_secs_f64());
+    let rate = 2_000_000_000_f64 / (1_048_576_f64 * elapsed.as_secs_f64());
     println!("RC4A (MBps): {:.2?}", rate);
 }

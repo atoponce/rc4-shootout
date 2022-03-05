@@ -1,15 +1,15 @@
-struct VMPC {
+struct Vmpc {
     i: u8,
     j: u8,
     state: [u8; 256]
 }
 
-impl VMPC {
-    fn new(key: &[u8], iv: &[u8]) -> VMPC {
-        assert!(1 <= key.len() && key.len() <= 256);
+impl Vmpc {
+    fn new(key: &[u8], iv: &[u8]) -> Vmpc {
+        assert!(!key.is_empty() && key.len() <= 256);
         assert!(key.len() == iv.len());
 
-        let mut vmpc = VMPC {
+        let mut vmpc = Vmpc {
             i: 0,
             j: 0,
             state: [0; 256]
@@ -33,13 +33,13 @@ impl VMPC {
             }
         }
 
-        VMPC {
+        vmpc = Vmpc {
             i: 0,
             j: 0,
             state: vmpc.state
         };
 
-        return vmpc;
+        vmpc
     }
 
     fn update(&mut self) -> u8 {
@@ -48,7 +48,7 @@ impl VMPC {
         let out = self.state[self.state[self.state[self.j as usize].wrapping_add(1) as usize] as usize];
         self.state.swap(self.i as usize, self.j as usize);
 
-        return out;
+        out
     }
 }
 
@@ -56,7 +56,7 @@ fn main() {
     use std::time::Instant;
     let key = &[0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef];
     let iv = &[0x10, 0x32, 0x54, 0x76, 0x98, 0xba, 0xdc, 0xfe];
-    let mut vmpc = VMPC::new(key, iv);
+    let mut vmpc = Vmpc::new(key, iv);
 
     // vmpc.update() returns 1 byte, so this loop returns 1 billion bytes
     let now = Instant::now();
@@ -66,6 +66,6 @@ fn main() {
         }
     }
     let elapsed = now.elapsed();
-    let rate = 1_000_000_000 as f64 / (1048576 as f64 * elapsed.as_secs_f64());
+    let rate = 1_000_000_000_f64 / (1_048_576_f64 * elapsed.as_secs_f64());
     println!("VMPC (MBps): {:.2?}", rate);
 }
