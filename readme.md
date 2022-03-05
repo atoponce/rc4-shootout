@@ -1,13 +1,9 @@
 # RC4 Variants PRNG Shootout
 Benchmark performance of RC4 and its variants.
 
-To build, execute:
+To run one of the binaries:
 
-    $ cargo build --release
-
-Then run one of the binaries:
-
-    $ ./target/release/rc4
+    $ cargo run --release --bin rc4a
 
 Benchmarks on my Intel Core i7-8650U CPU @ 1.90GHz:
 
